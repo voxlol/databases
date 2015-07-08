@@ -4,12 +4,26 @@ USE chat;
 
 CREATE TABLE messages (
   /* Describe your table here.*/
+  id int(11) NOT NULL AUTO_INCREMENT,
+  author varchar(255),
+  text text,
+  roomname varchar(100),
+  created_at timestamp,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE users (
+  /* Describe your table here.*/
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255),
+  created_at timestamp,
+  PRIMARY KEY (id)
 );
 
 /* Create other tables and define schemas for them here! */
-
-
-
+-- users table - uniqueID
+-- room table - uniqueID
+-- INSERT INTO messages (author, text, roomname, created_at) values('allen', 'is this working?', 'allenroom', NOW());
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
