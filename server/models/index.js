@@ -1,7 +1,8 @@
 var db = require('../db');
 
 
-
+// queries will be delegated to this page from the router.
+// controller shoudl only handle page routing.
 
 module.exports = {
   messages: {
