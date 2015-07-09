@@ -68,6 +68,9 @@ describe("Persistent Node Chat Server", function() {
     // Let's insert a message into the db
        var queryString = "INSERT INTO messages SET ?";
        var queryArgs = {author: 'tester', text: "Men like you can never change!", roomname : 'main'};
+
+       // send a post to USER and create the author
+
     // TODO - The exact query string and query args to use
     // here depend on the schema you design, so I'll leave
     // them up to you. */
