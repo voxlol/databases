@@ -5,14 +5,14 @@ USE chat;
 CREATE TABLE users (
   /* Describe your table here.*/
   id int(11) NOT NULL AUTO_INCREMENT,
-  username varchar(255),
+  username varchar(255) UNIQUE,
   created_at timestamp,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE rooms (
   id int(11) NOT NULL AUTO_INCREMENT,
-  roomname varchar(255),
+  roomname varchar(255) UNIQUE,
   created_at timestamp,
   PRIMARY KEY (id)
 );

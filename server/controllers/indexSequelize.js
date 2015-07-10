@@ -1,7 +1,5 @@
 var models = require('../models');
 var Promise = require('bluebird');
-var Message = require('../db/index.js').Message;
-var User = require('../db/index.js').User;
 // var dbConnection = require('../db/index.js').connection;
 // var Sequelize = require('sequelize')
 // var sequelize = module.exports =  new Sequelize("chat", "root", "");
@@ -31,43 +29,37 @@ module.exports = {
 
   messages: {
     get: function (req, res) {
-      Message.find({}).exec(function(err,collection){
-        if(err) console.log(err)
-        else{
-          res.json(collection);
-        }
-      });
+      Message.findAll({
+      }).then(function(messages){
+        res.json(messages);
+      })
     },
     post: function (req, res) {
       var user = req.body.username,
           room = req.body.roomname,
           text = req.body.message;
 
-      Message.create({author: user, text: text, roomname: room}, function(err, collection){
-        if(err) console.log(err)
-        else{
-          res.json(collection);
-        }
-      })
+      User.find({username: user}).then(function(user){
+        var userid = user.id
+        console.log(userid);
+        Room.findOrCreate({where: {roomname: room}, defaults: {roomname: room}}).then(function(room){
+          var roomId = room[0].dataValues.id;
+          Message.create({UserId: userid, text: text, RoomId: roomId}).then(function(message){
+            res.status(201).send("message created!")
+          });
+        });
+      });   // find the username, and find the room
     }
   },
 
   users: {
     get: function (req, res) {
-      User.find({}).exec(function(err, collection){
-        if(err) console.log(err)
-        else{
-          res.json(collection);
-        }
-      })
+      User.findAll().then(function(users){ res.json(users) })
     },
     post: function (req, res) {
-
-      User.create({username:req.body.username}, function(err,collection){
-        if(err) console.log(err)
-        else{
-          res.json(collection);
-        }
+      User.create({username:req.body.username}).then(function(){
+        console.log('post success!');
+        res.status(201).end('post success')
       })
     }
   }

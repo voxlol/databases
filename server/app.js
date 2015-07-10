@@ -1,6 +1,7 @@
 var express = require('express');
 var db = require('./db');
 var reqHandlers = require('./controllers/index.js');
+var cors = require('cors');
 
 // Middleware
 var morgan = require('morgan');
@@ -21,12 +22,6 @@ app.use(parser.json());
 
 // Set up our routes
 app.use("/classes", router);
-
-app.post('/classes/messages', reqHandlers.messages.post);
-app.get('/classes/messages', reqHandlers.messages.get);
-
-app.post('/classes/users', reqHandlers.users.post);
-app.get('/classes/users', reqHandlers.users.get);
 
 // Serve the client files
 app.use(express.static(__dirname + "/../client"));
